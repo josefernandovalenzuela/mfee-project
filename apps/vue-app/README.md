@@ -18,41 +18,18 @@ https://vuelidate-next.netlify.app/
 
 ## Activities
 
-### CategoryList
-1. Create a new local variable called **categories** (you can use the same value that **categories** has of **posts/components/CategoriesList.vue**)
-2. Use **v-for** in **CategoryList** to iterate the categories
-3. Use **text interpolation** to display the values in the table
+### /post-detail route
+1. Finish the functionality there to add a new comment. Create the axios call to add a new comment, you have to use validator in the input, sweet alerts, props, etc
 
 ### CategoryForm
-5. Create a new local object and use **v-model** in the form
-   ```
-   category: {
-     _id: null,
-     name: null,
-   }
-   ```
-6. Create a new local variable called **action** assign **Create** as default value and use **text interpolation** to show it instead of "(Action)" of title modal.
+2. Implement the alerts mixin to show a success or error message when the api call is made
+3. Add the functionality to know when you are editing or creating a category (you can use a watch here)
+4. Add the call to update a category
+   
+### CategoryList
+5. Implement the alerts mixin to show a success or error message when the api call delete is made
 
 ### SignUpView
-7. Create a new local object and use **v-model** in the form
- ```
-   credentials: {
-     username: null,
-     password: null,
-   }
-   ```
+6. Implement the alerts mixin to show a success or error message when the api call is made
 
-### LoginView
-8. Create a new local object and use **v-model** in the form
- ```
-   newUser: {
-     username: null,
-     password: null,
-     confirmPassword: null,
-   },
-   ```
-
-### NewComment
-9. Create a local variable for the new comment and use **v-model** for input
-
-Note: You can test that the components are working redering them on **App.vue** and validating that the forms are correctly binding the data
+You're done!, test the complete application
