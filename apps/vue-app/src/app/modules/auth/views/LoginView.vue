@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title text-center">Login</h5>
-      <form>
+      <form @submit.prevent="submit">
         <div class="form-group pb-3">
           <label>Username</label>
           <input type="text" class="form-control is-invalid" v-model="newUser.username" />
@@ -17,8 +17,8 @@
 
         <span class="form-text text-danger"> Error </span>
         <div class="d-flex justify-content-end mt-1">
-          <button class="btn btn-outline-primary me-1">Sign Up</button>
-          <button class="btn btn-primary">Login</button>
+          <button class="btn btn-outline-primary me-1" @click="handleSignUp()">Sign Up</button>
+          <button class="btn btn-primary" @click="handleLogin()">Login</button>
         </div>
       </form>
     </div>
@@ -38,6 +38,15 @@ export default {
       },
     };
   },
-  methods: {}
+  methods: {
+    handleLogin() {
+      console.log("🚀 ~ methods ~ handleLogin");
+
+    },
+    handleSignUp() {
+      console.log("🚀 ~ methods ~ handleSignUp");
+
+    }
+  }
 };
 </script>

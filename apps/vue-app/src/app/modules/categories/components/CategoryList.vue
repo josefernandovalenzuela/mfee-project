@@ -7,7 +7,7 @@
     </div>
 
     <hr />
-    <table class="table table-striped">
+    <table class="table table-striped" v-show="thereAreCategories">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -20,13 +20,15 @@
                 <th scope="row"> {{ category._id }}</th>
                 <td>{{ category.name }}</td>
                 <td>
-                    <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal"></i>
-                    <i class="fa-solid fa-trash"></i>
+                    <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal"
+                        @click="handleEdit(category)"></i>
+                    <i class="fa-solid fa-trash" @click="handleDelete(category._id)"></i>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+<div class="alert alert-warning m-3" role="alert" v-show="!thereAreCategories">There are not results.</div>
 </template>
 
 <script>
@@ -50,6 +52,19 @@ export default {
             ]
         };
     },
-    methods: {}
+    methods: {
+        handleEdit(categories) {
+            console.log("🚀 ~ handleEdit ~ categories:", categories)
+
+        },
+        handleDelete(id) {
+            console.log("🚀 ~ handleDelete id:", id)
+        }
+    },
+    computed: {
+        thereAreCategories() {
+            return this.categories.length > 0;
+        }
+    }
 };
 </script>
