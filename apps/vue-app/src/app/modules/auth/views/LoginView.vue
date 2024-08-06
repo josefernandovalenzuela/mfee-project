@@ -6,12 +6,12 @@
       <form>
         <div class="form-group pb-3">
           <label>Username</label>
-          <input type="text" class="form-control is-invalid" />
+          <input type="text" class="form-control is-invalid" v-model="newUser.username" />
           <span class="form-text text-danger"> Error </span>
         </div>
         <div class="form-group pb-3">
           <label>Password</label>
-          <input type="password" class="form-control" />
+          <input type="password" class="form-control" v-model="newUser.password" />
           <span class="form-text text-danger"> Error </span>
         </div>
 
@@ -30,7 +30,13 @@
 export default {
   name: 'LoginView',
   data() {
-    return {};
+    return {
+      newUser: {
+        username: null,
+        password: null,
+        confirmPassword: null,
+      },
+    };
   },
   methods: {}
 };
