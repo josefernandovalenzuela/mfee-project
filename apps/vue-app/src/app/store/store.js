@@ -44,5 +44,22 @@ export const store = reactive({
         __v: 0
       }
     ];
+  },
+  categories: [],
+  getCategories() {
+    this.categories = [
+      {
+        _id: '6661055a82f08e5ed86ae7f5',
+        name: 'Sport'
+      },
+      {
+        _id: '667ee7e882f08e5ed86af174',
+        name: 'Food updated 2'
+      }
+    ];
+  },
+  displayNavBar: true,
+  setDisplayNavBar(display) {
+    this.displayNavBar = display;
   }
 });

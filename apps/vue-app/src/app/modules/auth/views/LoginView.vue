@@ -44,7 +44,7 @@ export default {
 
     },
     handleSignUp() {
-      console.log("🚀 ~ methods ~ handleSignUp");
+      this.$router.push('/sign-up');
 
     }
   }

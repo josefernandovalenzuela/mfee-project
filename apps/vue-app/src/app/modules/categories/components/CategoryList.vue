@@ -21,7 +21,7 @@
                 <td>{{ category.name }}</td>
                 <td>
                     <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal"
-                        @click="handleEdit(category)"></i>
+                        @click="updateCategory(category)"></i>
                     <i class="fa-solid fa-trash" @click="handleDelete(category._id)"></i>
                 </td>
             </tr>
@@ -34,6 +34,7 @@
 <script>
 export default {
     name: 'CategoryList',
+    emits: ['updateCategory'],
     data() {
         return {
             categories: [
@@ -53,12 +54,11 @@ export default {
         };
     },
     methods: {
-        handleEdit(categories) {
-            console.log("🚀 ~ handleEdit ~ categories:", categories)
-
-        },
         handleDelete(id) {
             console.log("🚀 ~ handleDelete id:", id)
+        },
+        updateCategory(categorySelected) {
+            this.$emit('updateCategory', categorySelected);
         }
     },
     computed: {

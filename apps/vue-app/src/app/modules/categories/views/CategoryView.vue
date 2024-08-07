@@ -1,7 +1,7 @@
 <template>
-<div class="row pt-5">
-    <CategoryList />
-    <CategoryForm />
+<div class="col-12 d-flex justify-content-center">
+    <CategoryList @update-category="catchCategory($event)" />
+    <CategoryForm :categorySelected="categorySelected" />
 </div>
 </template>
 
@@ -15,7 +15,17 @@ export default {
         CategoryList
     },
     data() {
-        return {};
+        return {
+            categorySelected: {
+                _id: null,
+                name: ''
+            }
+        };
+    },
+    methods: {
+        catchCategory(value) {
+            this.categorySelected = value;
+        }
     }
 };
 </script>

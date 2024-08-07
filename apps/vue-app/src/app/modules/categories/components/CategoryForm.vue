@@ -11,7 +11,7 @@
                 <form>
                     <div class="form-group pb-3">
                         <label>Name</label>
-                        <input type="text" class="form-control" v-model="category.name" />
+                        <input type="text" class="form-control" v-model="categorySelected.name" />
                         <span class="form-text text-danger"> Error </span>
                     </div>
                 </form>
@@ -29,6 +29,11 @@
 <script>
 export default {
     name: 'CategoryForm',
+    props: {
+        categorySelected: {
+            type: Object
+        }
+    },
     data() {
         return {
             category: {
