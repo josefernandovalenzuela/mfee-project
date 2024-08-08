@@ -15,9 +15,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-for="category in categories" :key="category._id">
           <th scope="row">1</th>
-          <td>Category name</td>
+          <td>{{ category.name }}</td>
           <td>
             <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal"></i>
             <i class="fa-solid fa-trash">
@@ -37,7 +37,24 @@ import CategoryForm from '../components/CategoryForm.vue'
 
 export default {
   name: 'CategoryList',
-  methods: {},
+  data() {
+    return {
+      categories: [
+        {
+          _id: '2',
+          name: 'Category 1'
+        },
+        {
+          _id: '3',
+          name: 'Category 2'
+        },
+        {
+          _id: '4',
+          name: 'Category 3'
+        }
+      ]
+    };
+  },
   components: {
     CategoryForm
   }
