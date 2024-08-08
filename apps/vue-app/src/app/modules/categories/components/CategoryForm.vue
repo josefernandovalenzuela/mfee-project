@@ -11,8 +11,12 @@
                 <form>
                     <div class="form-group pb-3">
                         <label>Name</label>
-                        <input type="text" class="form-control" v-model="categorySelected.name" />
-                        <span class="form-text text-danger"> Error </span>
+                        <input type="text"
+                            :class="v$?.categorySelected?.name?.$error === true ? 'form-control is-invalid' : 'form-control'"
+                            v-model="categorySelected.name" />
+                        <span class="form-text text-danger" v-for="error of v$?.categorySelected?.name?.$errors"
+                            :key="error.$uid">
+                            {{ error.$message }} </span>
                     </div>
                 </form>
             </div>
@@ -27,6 +31,11 @@
 </template>
 
 <script>
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import { createCategory } from '../../../helpers/categories';
+import { store } from '../../../store/store.js';
+
 export default {
     name: 'CategoryForm',
     props: {
@@ -36,22 +45,43 @@ export default {
     },
     data() {
         return {
-            category: {
-                _id: null,
-                name: null,
-            },
-            action: 'Create'
+            store,
+            v$: useVuelidate(),
+            category: this.categorySelected,
+            action: 'Create',
         }
     },
     methods: {
         reset() {
-            console.log("🚀 ~ reset ");
+            this.v$.$reset();
+        },
+        async handleSave() {
+            const isValid = await this.v$.$validate();
+
+            if (!isValid) {
+                this.v$.$touch;
+            } else {
+                const status = await createCategory(
+                    { name: this.categorySelected?.name }
+                );
+
+                if (status) {
+                    this.store.getCategories();
+                    this.$refs.btnCloseModal.click();
+                } else {
+                    console.error("Save category error status:", status);
+                }
+            }
 
         },
-        handleSave() {
-            console.log("🚀 ~ handleSave ");
 
-        },
-    }
+    },
+    validations() {
+        return {
+            categorySelected: {
+                name: { required },
+            }
+        }
+    },
 };
 </script>

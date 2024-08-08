@@ -8,7 +8,7 @@ export const getPosts = async () => {
     .then(({ data }) => {
       posts = data;
     })
-    .catch((e) => console.error(e));
+    .catch((e) => console.error('Error Get Posts', e));
 
   return posts;
 };
@@ -21,7 +21,7 @@ export const getPostById = async (id) => {
     .then(({ data }) => {
       post = data;
     })
-    .catch((e) => console.error(e));
+    .catch((e) => console.error('Error Get Post By Id', e));
 
   return post;
 };
@@ -35,7 +35,7 @@ export const createPost = async (post) => {
     })
     .catch((e) => {
       status = false;
-      console.error(e);
+      console.error('Error Create Post', e);
     });
 
   return status;
@@ -50,7 +50,7 @@ export const updatePost = async (post) => {
     })
     .catch((e) => {
       status = false;
-      console.error(e);
+      console.error('Error Update Post', e);
     });
 
   return status;
@@ -65,7 +65,7 @@ export const deletePost = async (id) => {
     })
     .catch((e) => {
       status = false;
-      console.error(e);
+      console.error('Error Delete Post', e);
     });
 
   return status;

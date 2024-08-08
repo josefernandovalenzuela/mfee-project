@@ -15,7 +15,7 @@
                 <th scope="col">Actions</th>
             </tr>
         </thead>
-        <tbody v-for="category in categories" :key="category._id">
+        <tbody v-for="category in store.categories" :key="category._id">
             <tr>
                 <th scope="row"> {{ category._id }}</th>
                 <td>{{ category.name }}</td>
@@ -27,44 +27,48 @@
             </tr>
         </tbody>
     </table>
+    <div class="alert alert-warning m-3" role="alert" v-show="!thereAreCategories">There are not results.</div>
 </div>
-<div class="alert alert-warning m-3" role="alert" v-show="!thereAreCategories">There are not results.</div>
 </template>
 
 <script>
+import { store } from '../../../store/store.js';
+import { deleteCategory } from '../../../helpers/categories';
+
+
 export default {
     name: 'CategoryList',
     emits: ['updateCategory'],
     data() {
         return {
-            categories: [
-                {
-                    _id: '2',
-                    name: 'Category 1'
-                },
-                {
-                    _id: '3',
-                    name: 'Category 2'
-                },
-                {
-                    _id: '4',
-                    name: 'Category 3'
-                }
-            ]
+            store
         };
     },
     methods: {
-        handleDelete(id) {
-            console.log("🚀 ~ handleDelete id:", id)
+        async handleDelete(id) {
+            const status = await deleteCategory(id);
+            if (status) {
+                await this.store.getCategories();
+            } else {
+                console.error("Categories error status:", status);
+            }
         },
         updateCategory(categorySelected) {
             this.$emit('updateCategory', categorySelected);
+        },
+        async getAllCategories() {
+            await this.store.getCategories();
         }
     },
     computed: {
         thereAreCategories() {
-            return this.categories.length > 0;
-        }
-    }
+            return this.store.categories?.length > 0
+        },
+
+    },
+    created() {
+        this.getAllCategories();
+    },
+
 };
 </script>

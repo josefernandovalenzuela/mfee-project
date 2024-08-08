@@ -1,52 +1,95 @@
 <template>
 <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title text-center">Login</h5>
-      <form @submit.prevent="submit">
-        <div class="form-group pb-3">
-          <label>Username</label>
-          <input type="text" class="form-control is-invalid" v-model="newUser.username" />
-          <span class="form-text text-danger"> Error </span>
-        </div>
-        <div class="form-group pb-3">
-          <label>Password</label>
-          <input type="password" class="form-control" v-model="newUser.password" />
-          <span class="form-text text-danger"> Error </span>
-        </div>
+  <div>
+    <div class="alert alert-danger my-5" role="alert" v-show="showError"> <strong>Oh snap!</strong> Change a few things
+      up and try submitting again.</div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-center">Login</h5>
+        <form>
+          <div class="form-group pb-3">
+            <label>Username</label>
+            <input type="text"
+              :class="v$?.credentials?.username?.$error === true ? 'form-control is-invalid' : 'form-control'"
+              v-model="credentials.username" />
+            <span class="form-text text-danger" v-for="error of v$?.credentials?.username?.$errors" :key="error.$uid">
+              {{ error.$message }} </span>
+          </div>
+          <div class="form-group pb-3">
+            <label>Password</label>
+            <input type="password"
+              :class="v$?.credentials?.password?.$error === true ? 'form-control is-invalid' : 'form-control'"
+              v-model="credentials.password" />
+            <span class="form-text text-danger" v-for="error of v$?.credentials?.password?.$errors" :key="error.$uid">
+              {{ error.$message }} </span>
+          </div>
 
-        <span class="form-text text-danger"> Error </span>
-        <div class="d-flex justify-content-end mt-1">
-          <button class="btn btn-outline-primary me-1" @click="handleSignUp()">Sign Up</button>
-          <button class="btn btn-primary" @click="handleLogin()">Login</button>
+          <div class="d-flex p-1">
+            <button class="btn btn-primary w-100" @click="handleLogin()">Login</button>
+          </div>
+        </form>
+        <div class="d-flex p-1">
+          <button class="btn btn-outline-primary w-100 " @click="handleSignUp()">Sign Up</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+import { postLogin } from '../../../helpers/login';
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import router from '../../../router/router';
+
 export default {
   name: 'LoginView',
   data() {
     return {
-      newUser: {
+      v$: useVuelidate(),
+      credentials: {
         username: null,
         password: null,
-        confirmPassword: null,
       },
+      showError: false,
     };
   },
   methods: {
-    handleLogin() {
-      console.log("🚀 ~ methods ~ handleLogin");
+    async handleLogin() {
+      const isValid = await this.v$.$validate();
+
+      if (!isValid) {
+        this.v$.$touch;
+      } else {
+        const status = await postLogin({
+          username: this.credentials.username,
+          password: this.credentials.password
+        });
+
+        if (status) {
+          router.push('/home');
+        } else {
+          this.showError = true;
+        }
+      }
 
     },
     handleSignUp() {
-      this.$router.push('/sign-up');
+      router.push('/sign-up');
 
     }
-  }
+  },
+  validations() {
+    return {
+      credentials: {
+        username: { required },
+        password: { required },
+      }
+    }
+  },
+  created() {
+    this.showError = false;
+  },
 };
 </script>
