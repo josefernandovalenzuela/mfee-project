@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <div class="d-flex justify-content-between">
       <h1 class="display-6">Categories</h1>
-      <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#createCategoryModal">Add Category</button>
+      <button class="btn btn-outline-success" @click="handleCreate" data-bs-toggle="modal" data-bs-target="#createCategoryModal">Add Category</button>
     </div>
 
     <hr />
@@ -35,6 +35,7 @@
 
 <script>
 import CategoryForm from '../components/CategoryForm.vue'
+import { store } from '../../../store/store';
 
 export default {
   name: 'CategoryList',
@@ -45,29 +46,23 @@ export default {
     },
     handleDelete(categoryId) {
       console.log('Delete', categoryId)
+    },
+    handleCreate() {
+      this.categorySelected = null
     }
   },
   data() {
     return {
       categorySelected: null,
-      categories: [
-        {
-          _id: '2',
-          name: 'Category 1'
-        },
-        {
-          _id: '3',
-          name: 'Category 2'
-        },
-        {
-          _id: '4',
-          name: 'Category 3'
-        }
-      ]
+      categories: store.categories
     };
   },
   components: {
     CategoryForm
+  },
+  created() {
+    store.getCategories();
+    this.categories = store.categories
   },
   computed: {
     thereAreCategories() {

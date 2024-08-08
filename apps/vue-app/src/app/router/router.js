@@ -24,7 +24,7 @@ const routes = [
   },
   {
     path: '/category',
-    name: 'category-list',
+    name: 'category',
     component: () =>
       // TODO: Carga perezosa
       import(/* webpackChunkName: "Category"*/ '../modules/categories/views/CategoryView.vue'),

@@ -27,11 +27,15 @@
 </template>
 
 <script>
+import router from '../../../router/router';
+
 export default {
   name: 'LoginView',
   methods: {
     handleSignUp(){
-      console.log('Sign Up')
+      router.push({
+        name: 'register'
+      });
     },
     handleLogin(){
       console.log('Login')
