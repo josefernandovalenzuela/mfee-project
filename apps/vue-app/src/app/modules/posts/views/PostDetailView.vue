@@ -1,37 +1,38 @@
 <template>
-<div class="row">
-  <div class="col-md-12">
-    <div class="card bg-dark text-white">
-      <img :src="post.image" class="card-img" />
-      <div class="card-img-overlay">
-        <div class="d-flex justify-content-start align-items-center ms-4" @click="this.$router.back()">
-          <i class="fa-solid fa-chevron-left me-2"></i>
-          <span>View Posts</span>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-dark text-white">
+        <img :src="post.image" class="card-img" />
+        <div class="card-img-overlay">
+          <div class="d-flex justify-content-start align-items-center ms-4" @click="this.$router.back()">
+            <i class="fa-solid fa-chevron-left me-2"></i>
+            <span>View Posts</span>
+          </div>
         </div>
-      </div>
-      <div class="card-img-overlay text-center title">
-        <div class="card-content">
-          <h1 class="display-2">
-            <strong>{{ post.title }}</strong>
-          </h1>
+        <div class="card-img-overlay text-center title">
+          <div class="card-content">
+            <h1 class="display-2">
+              <strong>{{ post.title }}</strong>
+            </h1>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-md-12 bg-gray">
-    <div class="container m-5">
-      <p class="fs-5">
-        {{ post.description }}
-      </p>
-      <CommentsList />
+    <div class="col-md-12 bg-gray">
+      <div class="container m-5">
+        <p class="fs-5">
+          {{ post.description }}
+        </p>
+        <CommentsList />
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
 import CommentsList from '../components/CommentsList.vue';
+import { getPostById } from '../../../helpers/posts';
 import { store } from '../../../../app/store/store';
 
 export default {
@@ -63,8 +64,13 @@ export default {
       store,
     };
   },
+  methods: {
+    async getPostById(postId) {
+      this.post = await getPostById(postId);
+    }
+  },
   created() {
-    console.log('🚀 ~ created ~ this.id:', this.id);
+    this.getPostById(this.id);
     this.store.setDisplayNavBar(false);
   },
   unmounted() {
