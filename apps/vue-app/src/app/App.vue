@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar bg-body-tertiary">
+  <nav class="navbar bg-body-tertiary" v-if="store.navVisible">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="./assets/world.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top" />
@@ -14,5 +14,13 @@
 </template>
 
 <script>
-export default {};
+import { store } from './store/store';
+
+export default {
+  data() {
+    return {
+      store
+    };
+  }
+};
 </script>

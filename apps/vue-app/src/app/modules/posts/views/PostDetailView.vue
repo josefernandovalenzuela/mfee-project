@@ -32,6 +32,7 @@
 
 <script>
 import CommentsList from '../components/CommentsList.vue';
+import { store } from '../../../store/store';
 
 export default {
   props: {
@@ -58,13 +59,17 @@ export default {
           }
         ],
         _id: '1'
-      }
+      },
+      store
     };
   },
   created() {
     console.log('🚀 ~ created ~ this.id:', this.id);
+    this.store.toggleNav(false);
   },
-  unmounted() {}
+  unmounted() {
+    this.store.toggleNav(true);
+  }
 };
 </script>
 <style scoped>

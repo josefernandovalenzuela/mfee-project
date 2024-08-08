@@ -27,7 +27,7 @@
       </tbody>
     </table>
 
-    <CategoryForm />
+    <CategoryForm :categorySelected="categorySelected" />
     <div class="alert alert-warning m-3" role="alert" v-if="!thereAreCategories">There are not results.</div>
 
   </div>
@@ -40,7 +40,8 @@ export default {
   name: 'CategoryList',
   methods: {
     handleEdit(category) {
-      console.log('Edit')
+      console.log('handle edit')
+      this.categorySelected = category
     },
     handleDelete(categoryId) {
       console.log('Delete', categoryId)
@@ -48,6 +49,7 @@ export default {
   },
   data() {
     return {
+      categorySelected: null,
       categories: [
         {
           _id: '2',

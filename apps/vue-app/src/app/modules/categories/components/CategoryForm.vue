@@ -28,6 +28,12 @@
 export default {
   name: 'CategoryForm',
   methods: {},
+  props: {
+    categorySelected: {
+      type: Object,
+      default: null,
+    },
+  },
   data() {
     return {
       category: {
@@ -37,6 +43,23 @@ export default {
       action: 'Create',
     }
   },
+  watch: {
+    categorySelected: {
+      handler(category) {
+        if (category) {
+          this.category = category;
+          this.action = 'Edit';
+        } else {
+          this.category = {
+            _id: null,
+            name: null,
+          };
+          this.action = 'Create';
+        }
+      },
+      immediate: true,
+    }
+  }
 }
 </script>
 
