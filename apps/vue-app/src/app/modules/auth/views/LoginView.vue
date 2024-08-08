@@ -17,8 +17,8 @@
 
           <span class="form-text text-danger"> Error </span>
           <div class="d-flex justify-content-end mt-1">
-            <button class="btn btn-outline-primary me-1">Sign Up</button>
-            <button class="btn btn-primary">Login</button>
+            <button type="button" @click="handleSignUp" class="btn btn-outline-primary me-1">Sign Up</button>
+            <button type="button" @click="handleLogin" class="btn btn-primary">Login</button>
           </div>
         </form>
       </div>
@@ -29,7 +29,14 @@
 <script>
 export default {
   name: 'LoginView',
-  methods: {},
+  methods: {
+    handleSignUp(){
+      console.log('Sign Up')
+    },
+    handleLogin(){
+      console.log('Login')
+    }
+  },
   data() {
     return {
       credentials: {

@@ -21,7 +21,7 @@
           </div>
           <span class="form-text text-danger"> Error </span>
           <div class="d-flex justify-content-center mt-1">
-            <button class="btn btn-primary">Sign Up</button>
+            <button type="button" class="btn btn-primary" @click="handleSignUp">Sign Up</button>
           </div>
         </form>
       </div>
@@ -32,7 +32,11 @@
 <script>
 export default {
   name: 'SignUpView',
-  methods: {},
+  methods: {
+    handleSignUp(){
+      console.log('Sign Up')
+    },
+  },
   data() {
     return {
       newUser: {

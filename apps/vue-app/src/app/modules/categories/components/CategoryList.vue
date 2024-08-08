@@ -19,9 +19,8 @@
           <th scope="row">1</th>
           <td>{{ category.name }}</td>
           <td>
-            <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal"></i>
-            <i class="fa-solid fa-trash">
-
+            <i class="fa-solid fa-pen me-3" @click="() => handleEdit(category)" data-bs-toggle="modal" data-bs-target="#createCategoryModal"></i>
+            <i @click="() => handleDelete(category._id)" class="fa-solid fa-trash">
             </i>
           </td>
         </tr>
@@ -29,6 +28,8 @@
     </table>
 
     <CategoryForm />
+    <div class="alert alert-warning m-3" role="alert" v-if="!thereAreCategories">There are not results.</div>
+
   </div>
 </template>
 
@@ -37,6 +38,14 @@ import CategoryForm from '../components/CategoryForm.vue'
 
 export default {
   name: 'CategoryList',
+  methods: {
+    handleEdit(category) {
+      console.log('Edit')
+    },
+    handleDelete(categoryId) {
+      console.log('Delete', categoryId)
+    }
+  },
   data() {
     return {
       categories: [
@@ -57,6 +66,11 @@ export default {
   },
   components: {
     CategoryForm
+  },
+  computed: {
+    thereAreCategories() {
+      return this.categories.length > 0;
+    }
   }
 }
 </script>

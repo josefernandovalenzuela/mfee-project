@@ -1,17 +1,15 @@
 <template>
-  <CategoryView />
+  <PostView />
   <!-- <PostDetailView /> -->
 </template>
 
 <script>
 import PostView from './modules/posts/views/PostView.vue';
 /* import PostDetailView from './modules/posts/views/PostDetailView.vue'; */
-import CategoryView from './modules/categories/views/CategoryView.vue';
 
 export default {
   components: {
-    // PostView
-    CategoryView
+    PostView
     /* PostDetailView */
   }
 };
