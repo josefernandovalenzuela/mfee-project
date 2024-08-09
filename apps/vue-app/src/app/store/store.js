@@ -27,4 +27,8 @@ export const store = reactive({
   setLogged(newValue) {
     this.isLogged = newValue;
   },
+  postEditing: null,
+  setPostEditing(post) {
+    this.postEditing = post;
+  }
 });
