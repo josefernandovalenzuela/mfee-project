@@ -1,28 +1,18 @@
 <template>
-  <!-- <PostView /> -->
-  <!-- <PostDetailView />  -->
-   <CategoryView/> 
-   <!-- <SignUpView/> -->
-   <!-- <LoginView/>  -->
-   <!-- <NewComment/> -->
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./assets/world.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top" />
+      </a>
+      <div>
+        <button class="btn btn-outline-warning me-2">Categories</button>
+        <button class="btn btn-outline-warning">Login</button>
+      </div>
+    </div>
+  </nav>
+  <router-view />
 </template>
 
 <script>
-// import PostView from './modules/posts/views/PostView.vue';
-/* import PostDetailView from './modules/posts/views/PostDetailView.vue'; */
-import CategoryView from './modules/categories/views/CategoryView.vue';
-// import SignUpView from './modules/auth/views/SignUpView.vue';
-// import LoginView from './modules/auth/views/LoginView.vue';
-// import NewComment from './modules/posts/components/NewComment.vue';
-
-export default {
-  components: {
-    // PostView,
-    /* PostDetailView */
-    CategoryView,
-    // SignUpView,
-    // LoginView,
-    // NewComment
-  }
-};
+export default {};
 </script>
