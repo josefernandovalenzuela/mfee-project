@@ -6,17 +6,17 @@
         <form>
           <div class="form-group pb-3">
             <label>Username</label>
-            <input type="text" class="form-control" />
+            <input type="text" class="form-control" v-model="newUser.username" />
             <span class="form-text text-danger"> Error </span>
           </div>
           <div class="form-group pb-3">
             <label>Password</label>
-            <input type="password" class="form-control" />
+            <input type="password" class="form-control" v-model="newUser.password" />
             <span class="form-text text-danger"> Error </span>
           </div>
           <div class="form-group pb-3">
             <label>Confirm Password</label>
-            <input type="password" class="form-control" />
+            <input type="password" class="form-control" v-model="newUser.confirmPassword" />
             <span class="form-text text-danger"> Error </span>
           </div>
           <span class="form-text text-danger"> Error </span>
@@ -33,7 +33,13 @@
 export default {
   components: {},
   data() {
-    return {};
+    return {
+      newUser: {
+        username: null,
+        password: null,
+        confirmPassword: null
+      }
+    };
   }
 };
 </script>

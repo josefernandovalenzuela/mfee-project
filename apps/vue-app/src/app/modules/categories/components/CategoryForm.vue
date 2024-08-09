@@ -3,14 +3,14 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header text-center">
-          <h5 class="modal-title">(Action) Category</h5>
+          <h5 class="modal-title">{{ action }} Category</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="form-group pb-3">
               <label>Name</label>
-              <input type="text" class="form-control" />
+              <input type="text" class="form-control" v-model="category.name" />
               <span class="form-text text-danger"> Error </span>
             </div>
           </form>
@@ -28,7 +28,13 @@
 export default {
   components: {},
   data() {
-    return {};
-  }
+    return {
+      category: {
+        _id: null,
+        name: null
+      },
+      action:"Create"
+    };
+  },
 };
 </script>
