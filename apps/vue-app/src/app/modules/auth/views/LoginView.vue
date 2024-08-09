@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import router from '../../../router/router';
+
 export default {
   components: {},
   data() {
@@ -39,7 +41,9 @@ export default {
   },
   methods: {
     signUp() {
-      console.log(this.credentials);
+      router.push({
+        name: 'signUp'
+      });
     },
     login() {
       console.log(this.credentials);

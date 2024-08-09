@@ -44,5 +44,26 @@ export const store = reactive({
         __v: 0
       }
     ];
+  },
+  categories: [],
+  getCategories() {
+    this.categories = [
+      {
+        _id: '2',
+        name: 'Category 1'
+      },
+      {
+        _id: '3',
+        name: 'Category 2'
+      },
+      {
+        _id: '4',
+        name: 'Category 3'
+      }
+    ];
+  },
+  showNavBar: true,
+  setShowNavBar(show) {
+    this.showNavBar = show;
   }
 });

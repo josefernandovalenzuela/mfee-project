@@ -19,7 +19,12 @@
           <th scope="row">{{ category._id }}</th>
           <td>{{ category.name }}</td>
           <td>
-            <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal" @click="edit(category)"></i>
+            <i
+              class="fa-solid fa-pen me-3"
+              data-bs-toggle="modal"
+              data-bs-target="#createCategoryModal"
+              @click="updateCategory(category)"
+            ></i>
             <i class="fa-solid fa-trash" @click="remove(category._id)"></i>
           </td>
         </tr>
@@ -27,7 +32,7 @@
     </table>
     <div class="alert alert-warning m-3" role="alert" v-show="!thereAreCategories">There are not results.</div>
   </div>
-  <CategoryForm />
+  <CategoryForm :category-selected="categorySelected" />
 </template>
 
 <script>
@@ -40,27 +45,28 @@ export default {
   data() {
     return {
       categories: [
-        // {
-        //   _id: '2',
-        //   name: 'Category 1'
-        // },
-        // {
-        //   _id: '3',
-        //   name: 'Category 2'
-        // },
-        // {
-        //   _id: '4',
-        //   name: 'Category 3'
-        // }
-      ]
+        {
+          _id: '2',
+          name: 'Category 1'
+        },
+        {
+          _id: '3',
+          name: 'Category 2'
+        },
+        {
+          _id: '4',
+          name: 'Category 3'
+        }
+      ],
+      categorySelected: null
     };
   },
   methods: {
-    edit(category) {
-      console.log(category);
-    },
     remove(id) {
       console.log(id);
+    },
+    updateCategory(category) {
+      this.categorySelected = category;
     }
   },
   computed: {
