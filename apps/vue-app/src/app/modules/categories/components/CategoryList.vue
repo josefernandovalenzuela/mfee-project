@@ -2,7 +2,8 @@
 <div class="container mt-5">
     <div class="d-flex justify-content-between">
         <h1 class="display-6">Categories</h1>
-        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#createCategoryModal">Add
+        <button @click="updateCategory({})" class="btn btn-outline-success" data-bs-toggle="modal"
+            data-bs-target="#createCategoryModal">Add
             Category</button>
     </div>
 
@@ -34,7 +35,7 @@
 <script>
 import { store } from '../../../store/store.js';
 import { deleteCategory } from '../../../helpers/categories';
-
+import { alerts } from '../../../helpers/alerts';
 
 export default {
     name: 'CategoryList',
@@ -44,17 +45,20 @@ export default {
             store
         };
     },
+    mixins: [alerts],
     methods: {
         async handleDelete(id) {
             const status = await deleteCategory(id);
+            this.showAlert('success', 'Category has been deleted!');
             if (status) {
                 await this.store.getCategories();
             } else {
+                this.showAlert('error', 'Something bad happened :(');
                 console.error("Categories error status:", status);
             }
         },
-        updateCategory(categorySelected) {
-            this.$emit('updateCategory', categorySelected);
+        updateCategory(category) {
+            this.$emit('updateCategory', category);
         },
         async getAllCategories() {
             await this.store.getCategories();

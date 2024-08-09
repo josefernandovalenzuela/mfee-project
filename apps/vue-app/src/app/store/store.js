@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { getPosts } from '../helpers/posts';
+import { getPosts, getPostById } from '../helpers/posts';
 import { getCategories } from '../helpers/categories';
 
 export const store = reactive({
@@ -22,5 +22,14 @@ export const store = reactive({
   displayNavBar: true,
   setDisplayNavBar(display) {
     this.displayNavBar = display;
+  },
+  postId: '',
+  setPostId(value) {
+    this.postId = value;
+  },
+  comments: [],
+  async getComments(postId) {
+    const data = await getPostById(postId);
+    this.comments = data?.comments ?? [];
   }
 });

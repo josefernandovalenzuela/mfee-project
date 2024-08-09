@@ -6,7 +6,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title text-center">Login</h5>
-        <form>
+        <form @submit.prevent="submit">
           <div class="form-group pb-3">
             <label>Username</label>
             <input type="text"

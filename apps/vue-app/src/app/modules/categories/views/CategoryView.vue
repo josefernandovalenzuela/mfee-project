@@ -16,10 +16,7 @@ export default {
     },
     data() {
         return {
-            categorySelected: {
-                _id: null,
-                name: ''
-            }
+            categorySelected: {}
         };
     },
     methods: {

@@ -47,7 +47,7 @@ export const deleteCategory = async (id) => {
 export const updateCategory = async (category) => {
   let status;
   await capstoneApi
-    .patch(`/categories/${category._id}`, category.name)
+    .patch(`/categories/${category._id}`, category)
     .then(() => {
       status = true;
     })

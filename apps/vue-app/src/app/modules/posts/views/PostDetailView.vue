@@ -1,33 +1,33 @@
 <template>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card bg-dark text-white">
-        <img :src="post.image" class="card-img" />
-        <div class="card-img-overlay">
-          <div class="d-flex justify-content-start align-items-center ms-4" @click="this.$router.back()">
-            <i class="fa-solid fa-chevron-left me-2"></i>
-            <span>View Posts</span>
-          </div>
-        </div>
-        <div class="card-img-overlay text-center title">
-          <div class="card-content">
-            <h1 class="display-2">
-              <strong>{{ post.title }}</strong>
-            </h1>
-          </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card bg-dark text-white">
+      <img :src="post.image" class="card-img" />
+      <div class="card-img-overlay">
+        <div class="d-flex justify-content-start align-items-center ms-4" @click="this.$router.back()">
+          <i class="fa-solid fa-chevron-left me-2"></i>
+          <span>View Posts</span>
         </div>
       </div>
-    </div>
-
-    <div class="col-md-12 bg-gray">
-      <div class="container m-5">
-        <p class="fs-5">
-          {{ post.description }}
-        </p>
-        <CommentsList />
+      <div class="card-img-overlay text-center title">
+        <div class="card-content">
+          <h1 class="display-2">
+            <strong>{{ post.title }}</strong>
+          </h1>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="col-md-12 bg-gray">
+    <div class="container m-5">
+      <p class="fs-5">
+        {{ post.description }}
+      </p>
+      <CommentsList :comments="store.comments" :post-id="post._id" />
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -53,12 +53,7 @@ export default {
           _id: '2',
           name: 'Travel'
         },
-        comments: [
-          {
-            author: 'Alejandro',
-            content: 'First comment'
-          }
-        ],
+        comments: [],
         _id: '1'
       },
       store,
@@ -72,6 +67,7 @@ export default {
   created() {
     this.getPostById(this.id);
     this.store.setDisplayNavBar(false);
+    this.store.getComments(this.id);
   },
   unmounted() {
     this.store.setDisplayNavBar(true);

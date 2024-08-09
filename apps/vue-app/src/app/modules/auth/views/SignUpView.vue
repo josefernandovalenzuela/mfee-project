@@ -3,7 +3,7 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title text-center">Sign Up</h5>
-      <form>
+      <form @submit.prevent="submit">
         <div class="form-group pb-3">
           <label>Username</label>
           <input type="text"
@@ -42,9 +42,11 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, sameAs, minLength, maxLength, helpers } from '@vuelidate/validators'
 import { postRegister } from '../../../helpers/register';
 import router from '../../../router/router';
+import { alerts } from '../../../helpers/alerts';
 
 export default {
   name: 'SignUpView',
+  mixins: [alerts],
   data() {
     return {
       v$: useVuelidate(),
@@ -67,10 +69,11 @@ export default {
           password: this.newUser.password
         });
 
-
         if (status) {
+          this.showAlert('success', 'Register is done, please login!');
           router.push('/login');
         } else {
+          this.showAlert('error', 'System Error.  Please try again');
           console.error("Register error status:", status);
         }
       }

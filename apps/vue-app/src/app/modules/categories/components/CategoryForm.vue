@@ -8,7 +8,7 @@
                     @click="reset()"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form @submit.prevent="submit">
                     <div class="form-group pb-3">
                         <label>Name</label>
                         <input type="text"
@@ -33,8 +33,9 @@
 <script>
 import { useVuelidate } from '@vuelidate/core'
 import { required } from '@vuelidate/validators'
-import { createCategory } from '../../../helpers/categories';
+import { createCategory, updateCategory } from '../../../helpers/categories';
 import { store } from '../../../store/store.js';
+import { alerts } from '../../../helpers/alerts';
 
 export default {
     name: 'CategoryForm',
@@ -61,14 +62,24 @@ export default {
             if (!isValid) {
                 this.v$.$touch;
             } else {
-                const status = await createCategory(
-                    { name: this.categorySelected?.name }
-                );
+                let status;
+                if (this.action === 'Create') {
+                    status = await createCategory(
+                        { name: this.categorySelected.name }
+                    );
+                    this.showAlert('success', 'Category has been created!');
+                } else {
+                    status = await updateCategory(
+                        this.categorySelected
+                    );
+                    this.showAlert('success', 'Category has been updated');
+                }
 
                 if (status) {
                     this.store.getCategories();
                     this.$refs.btnCloseModal.click();
                 } else {
+                    this.showAlert('error', 'Something bad happened');
                     console.error("Save category error status:", status);
                 }
             }
@@ -81,6 +92,25 @@ export default {
             categorySelected: {
                 name: { required },
             }
+        }
+    },
+    mixins: [alerts],
+    watch: {
+        'categorySelected'(value) {
+            const { _id, name, createdAt, updatedAt, __v } = value;
+            if (_id) {
+                this.action = 'Update';
+                this.category = {
+                    _id,
+                    name,
+                    createdAt,
+                    updatedAt,
+                    __v
+                };
+            } else {
+                this.action = 'Create';
+            }
+
         }
     },
 };
