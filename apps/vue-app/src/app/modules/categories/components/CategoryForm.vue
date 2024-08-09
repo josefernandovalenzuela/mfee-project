@@ -16,6 +16,7 @@
               </span>
             </div>
           </form>
+          <div class="alert alert-danger" role="alert" v-if="errorMessage">{{ errorMessage }}</div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="btnCloseModal">Cancel</button>
@@ -29,7 +30,7 @@
 <script>
 import useVuelidate from '@vuelidate/core';
 import { required, helpers } from '@vuelidate/validators';
-import { createCategorie } from '../../../helpers/categories';
+import { createCategorie, updateCategorie } from '../../../helpers/categories';
 
 export default {
   name: 'CategoryForm',
@@ -39,12 +40,29 @@ export default {
       if (this.v$.$invalid) {
         return;
       }
-      createCategorie(this.category.name).then(() => {
-        this.$refs.btnCloseModal.click();
-        this.$emit('refresh-categories');
-      }).catch((error) => {
-        console.log('Error', error);
-      });
+      if (this.category._id) {
+        // Edit
+        updateCategorie(this.category._id, this.category.name)
+          .then(() => {
+            this.$refs.btnCloseModal.click();
+            this.$emit('refresh-categories', 'edited');
+          })
+          .catch((error) => {
+            this.errorMessage = error;
+            console.log('Error', error);
+          });
+      } else {
+        // Create
+        createCategorie(this.category.name)
+          .then(() => {
+            this.$refs.btnCloseModal.click();
+            this.$emit('refresh-categories', 'created');
+          })
+          .catch((error) => {
+            this.errorMessage = error;
+            console.log('Error', error);
+          });
+      }
     }
   },
   props: {
@@ -60,7 +78,8 @@ export default {
         _id: null,
         name: null
       },
-      action: 'Create'
+      action: 'Create',
+      errorMessage: ''
     };
   },
   validations() {
@@ -85,6 +104,13 @@ export default {
         }
       },
       immediate: true
+    },
+    errorMessage: {
+      handler() {
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 2000);
+      }
     }
   }
 };

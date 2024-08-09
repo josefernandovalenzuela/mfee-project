@@ -24,7 +24,10 @@
         <p class="fs-5">
           {{ post.description }}
         </p>
-        <CommentsList />
+        <CommentsList
+          :comments="post.comments"
+          :id="id"
+          @refresh-comments="getPostById" />
       </div>
     </div>
   </div>

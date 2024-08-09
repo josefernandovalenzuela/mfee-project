@@ -8,6 +8,7 @@
     </div>
 
     <hr />
+
     <table class="table table-striped">
       <thead>
         <tr>
@@ -22,10 +23,10 @@
           <td>{{ category.name }}</td>
           <td>
             <i
-              class="fa-solid fa-pen me-3"
-              @click="() => handleEdit(category)"
-              data-bs-toggle="modal"
-              data-bs-target="#createCategoryModal"
+            class="fa-solid fa-pen me-3"
+            @click="() => handleEdit(category)"
+            data-bs-toggle="modal"
+            data-bs-target="#createCategoryModal"
             ></i>
             <i @click="() => handleDelete(category._id)" class="fa-solid fa-trash"> </i>
           </td>
@@ -35,6 +36,9 @@
 
     <CategoryForm :categorySelected="categorySelected" @refresh-categories="handleGetData" />
     <div class="alert alert-warning m-3" role="alert" v-if="!thereAreCategories">There are not results.</div>
+    <div class="alert alert-success" role="alert" v-if="message">{{ message }}</div>
+    <div class="alert alert-danger" role="alert" v-if="errorMessage">{{errorMessage}}</div>
+
   </div>
 </template>
 
@@ -42,6 +46,11 @@
 import CategoryForm from '../components/CategoryForm.vue';
 import { store } from '../../../store/store';
 import { deleteCategorie } from '../../../helpers/categories';
+
+const MESSAGES = {
+  created: 'Category created successfully',
+  edited: 'Category edited successfully'
+};
 
 export default {
   name: 'CategoryList',
@@ -54,34 +63,57 @@ export default {
       deleteCategorie(categoryId)
         .then(() => {
           this.categories = this.categories.filter((category) => category._id !== categoryId);
+          this.message = 'Category deleted successfully';
         })
         .catch((error) => {
           console.log('Error', error);
+          this.errorMessage = error;
         });
     },
     handleCreate() {
       this.categorySelected = null;
     },
-    async handleGetData() {
+    async handleGetData(type) {
       await store.getCategories();
       this.categories = store.categories;
+      if (type !== 'mounted') {
+        this.message = MESSAGES[type];
+      }
     }
   },
   data() {
     return {
       categorySelected: null,
-      categories: []
+      categories: [],
+      message: '',
+      errorMessage: ''
     };
   },
   components: {
     CategoryForm
   },
   mounted() {
-    this.handleGetData();
+    this.handleGetData('mounted');
   },
   computed: {
     thereAreCategories() {
       return this.categories.length > 0;
+    }
+  },
+  watch: {
+    message: {
+      handler() {
+        setTimeout(() => {
+          this.message = '';
+        }, 2000);
+      }
+    },
+    errorMessage: {
+      handler() {
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 2000);
+      }
     }
   }
 };

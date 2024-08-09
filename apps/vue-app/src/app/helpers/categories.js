@@ -30,19 +30,16 @@ export const createCategorie = async (name) => {
 };
 
 export const updateCategorie = async (id, newName) => {
-  let status;
+
   await capstoneApi
-    .patch(`/categories/${id}`, { newName })
+    .patch(`/categories/${id}`, { name: newName })
     .then((token) => {
       console.log(token);
-      status = true;
     })
     .catch((e) => {
-      status = false;
       console.error(e);
+      throw e.response.data.message;
     });
-
-  return status;
 };
 
 export const deleteCategorie = async (id) => {
