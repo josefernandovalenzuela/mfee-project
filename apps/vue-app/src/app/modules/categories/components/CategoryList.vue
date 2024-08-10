@@ -23,7 +23,7 @@
               class="fa-solid fa-pen me-3"
               data-bs-toggle="modal"
               data-bs-target="#createCategoryModal"
-              @click="updateCategory(category)"
+              @click="selectCategory(category)"
             ></i>
             <i class="fa-solid fa-trash" @click="remove(category._id)"></i>
           </td>
@@ -32,11 +32,13 @@
     </table>
     <div class="alert alert-warning m-3" role="alert" v-show="!thereAreCategories">There are not results.</div>
   </div>
-  <CategoryForm :category-selected="categorySelected" />
+  <CategoryForm :category-selected="categorySelected" @get-categories="getCategories" @select-category="selectCategory" />
 </template>
 
 <script>
 import CategoryForm from './CategoryForm.vue';
+import { getCategories } from '../../../helpers/categories';
+import { deleteCategory } from '../../../helpers/categories';
 
 export default {
   components: {
@@ -44,34 +46,34 @@ export default {
   },
   data() {
     return {
-      categories: [
-        {
-          _id: '2',
-          name: 'Category 1'
-        },
-        {
-          _id: '3',
-          name: 'Category 2'
-        },
-        {
-          _id: '4',
-          name: 'Category 3'
-        }
-      ],
+      categories: null,
       categorySelected: null
     };
   },
   methods: {
-    remove(id) {
-      console.log(id);
+    async remove(id) {
+      let status;
+      status = await deleteCategory(id);
+
+      if (status) {
+        this.getCategories();
+      } else {
+        console.error('Error while trying to delete category');
+      }
     },
-    updateCategory(category) {
+    selectCategory(category) {
       this.categorySelected = category;
+    },
+    async getCategories() {
+      this.categories = await getCategories();
     }
+  },
+  created() {
+    this.getCategories();
   },
   computed: {
     thereAreCategories() {
-      return this.categories.length > 0;
+      return this.categories && this.categories.length > 0;
     }
   }
 };

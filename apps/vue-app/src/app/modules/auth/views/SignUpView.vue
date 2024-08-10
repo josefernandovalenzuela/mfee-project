@@ -6,22 +6,42 @@
         <form @submit.prevent>
           <div class="form-group pb-3">
             <label>Username</label>
-            <input type="text" class="form-control" v-model="newUser.username" />
-            <span class="form-text text-danger"> Error </span>
+            <input
+              type="text"
+              class="form-control"
+              :class="v$.newUser.username.$error === true ? 'is-invalid' : ''"
+              v-model="newUser.username"
+            />
+            <span class="form-text text-danger" v-for="error of v$.newUser.username.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </span>
           </div>
           <div class="form-group pb-3">
             <label>Password</label>
-            <input type="password" class="form-control" v-model="newUser.password" />
-            <span class="form-text text-danger"> Error </span>
+            <input
+              type="password"
+              class="form-control"
+              :class="v$.newUser.password.$error === true ? 'is-invalid' : ''"
+              v-model="newUser.password"
+            />
+            <span class="form-text text-danger" v-for="error of v$.newUser.password.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </span>
           </div>
           <div class="form-group pb-3">
             <label>Confirm Password</label>
-            <input type="password" class="form-control" v-model="newUser.confirmPassword" />
-            <span class="form-text text-danger"> Error </span>
+            <input
+              type="password"
+              class="form-control"
+              :class="v$.newUser.confirmPassword.$error === true ? 'is-invalid' : ''"
+              v-model="newUser.confirmPassword"
+            />
+            <span class="form-text text-danger" v-for="error of v$.newUser.confirmPassword.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </span>
           </div>
-          <span class="form-text text-danger"> Error </span>
           <div class="d-flex justify-content-center mt-1">
-            <button class="btn btn-primary" @click="signUp">Sign Up</button>
+            <button class="btn btn-primary" @click="submit">Sign Up</button>
           </div>
         </form>
       </div>
@@ -30,10 +50,16 @@
 </template>
 
 <script>
+import { useVuelidate } from '@vuelidate/core';
+import router from '../../../router/router';
+import { helpers, required, sameAs } from '@vuelidate/validators';
+import { register } from '../../../helpers/auth';
+
 export default {
   components: {},
   data() {
     return {
+      v$: useVuelidate(),
       newUser: {
         username: null,
         password: null,
@@ -41,9 +67,48 @@ export default {
       }
     };
   },
+  validations() {
+    return {
+      newUser: {
+        username: {
+          required: helpers.withMessage('User field is required.', required),
+          $autoDirty: true
+        },
+        password: {
+          required: helpers.withMessage('Password field is required.', required),
+          $autoDirty: true
+        },
+        confirmPassword: {
+          required: helpers.withMessage('Confirm password field is required. ', required),
+          sameAsPassword: helpers.withMessage('Password and Confirm Password must match.', sameAs(this.newUser.password)),
+          $autoDirty: true
+        }
+      }
+    };
+  },
   methods: {
-    signUp() {
-      console.log(this.newUser);
+    async submit() {
+      const isValid = await this.v$.$validate();
+
+      if (!isValid) {
+        this.v$.$touch();
+      } else {
+        this.signUp();
+      }
+    },
+
+    async signUp() {
+      let status;
+      const { username, password } = this.newUser;
+      status = await register({ username, password });
+
+      if (status) {
+        router.push({
+          name: 'login'
+        });
+      } else {
+        console.error('Error on sign up');
+      }
     }
   }
 };
