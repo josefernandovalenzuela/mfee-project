@@ -54,9 +54,11 @@ import { useVuelidate } from '@vuelidate/core';
 import router from '../../../router/router';
 import { helpers, required, sameAs } from '@vuelidate/validators';
 import { register } from '../../../helpers/auth';
+import { alerts } from '../../../helpers/alerts';
 
 export default {
   components: {},
+  mixins: [alerts],
   data() {
     return {
       v$: useVuelidate(),
@@ -103,11 +105,12 @@ export default {
       status = await register({ username, password });
 
       if (status) {
+        this.showAlert('success', 'The user has been added');
         router.push({
           name: 'login'
         });
       } else {
-        console.error('Error on sign up');
+        this.showAlert('error', "The user couldn't be added");
       }
     }
   }
