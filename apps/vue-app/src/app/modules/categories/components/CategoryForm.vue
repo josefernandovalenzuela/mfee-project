@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header text-center">
                     <h5 class="modal-title">{{action}} Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-on:click="reset()"></button>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -16,9 +16,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        ref="btnCloseModal">Cancel</button>
-                    <button class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref="btnCloseModal" v-on:click="reset()">Cancel</button>
+                    <button class="btn btn-primary" v-on:click="save()">Save</button>
                 </div>
             </div>
         </div>
@@ -32,6 +31,8 @@ export default {
 
     },
     methods: {
+        reset(){},
+        save(){},
 
     },
     data() {

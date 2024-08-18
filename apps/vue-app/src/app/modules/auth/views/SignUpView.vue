@@ -21,7 +21,7 @@
                     </div>
                     <span class="form-text text-danger"> Error </span>
                     <div class="d-flex justify-content-center mt-1">
-                        <button class="btn btn-primary">Sign Up</button>
+                        <button class="btn btn-primary" v-on:click.prevent="signUpEvent()">Sign Up</button>
                     </div>
                 </form>
             </div>
@@ -36,7 +36,7 @@ export default {
 
     },
     methods: {
-
+        signUpEvent(){}
     },
     data() {
         return {

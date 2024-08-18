@@ -5,7 +5,7 @@
     </form>
   </div>
   <div class="col-md-6">
-    <button class="btn btn-primary mt-2">Add</button>
+    <button class="btn btn-primary mt-2" v-on:click="add()">Add</button>
   </div>
 </template>
 
@@ -19,5 +19,8 @@ export default {
 
         };
     },
+    methods : {
+      add(){}
+    }
 };
 </script>

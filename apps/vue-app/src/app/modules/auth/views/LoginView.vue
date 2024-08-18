@@ -17,8 +17,8 @@
 
                     <span class="form-text text-danger"> Error </span>
                     <div class="d-flex justify-content-end mt-1">
-                        <button class="btn btn-outline-primary me-1">Sign Up</button>
-                        <button class="btn btn-primary">Login</button>
+                        <button class="btn btn-outline-primary me-1" v-on:click="signUpEvent()">Sign Up</button>
+                        <button class="btn btn-primary" v-on:click="loginEvent()">Login</button>
                     </div>
                 </form>
             </div>
@@ -32,6 +32,9 @@ export default {
     created() {
     },
     methods: {
+        signUpEvent(){},
+        loginEvent(){},
+
     },
     data() {
         return {
