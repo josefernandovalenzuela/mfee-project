@@ -23,6 +23,28 @@ const routes = [
     props: true
   },
   {
+    path: '/categories',
+    name: 'categories',
+    component: () =>
+      // TODO: Carga perezosa
+      import(/* webpackChunkName: "CategoryView"*/ '../modules/categories/views/categoryView.vue'),
+      
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () =>
+      // TODO: Carga perezosa
+      import(/* webpackChunkName: "LoginView"*/ '../modules/auth/views/LoginView.vue'),
+  },
+  {
+    path: '/signup',
+    name: 'signUp',
+    component: () =>
+      // TODO: Carga perezosa
+      import(/* webpackChunkName: "SignUpView"*/ '../modules/auth/views/SignUpView.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: () => import(/* webpackChunkName: "NotFoundView"*/ '../shared/views/NotFoundView.vue')
   }

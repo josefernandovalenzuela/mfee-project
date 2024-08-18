@@ -10,7 +10,7 @@
                     <form>
                         <div class="form-group pb-3">
                             <label>Name</label>
-                            <input type="text" class="form-control"  v-model="category.name"/>
+                            <input type="text" class="form-control"/>
                             <span class="form-text text-danger"> Error </span>
                         </div>
                     </form>
@@ -30,19 +30,20 @@ export default {
     created() {
 
     },
+    props: {
+    categorySelected: {
+      type: Object
+    }
+  },
     methods: {
         reset(){},
-        save(){},
+        save(){
+            this.reset();
+        },
 
     },
     data() {
-        return {
-            category: {
-                _id: null,
-                name: null,
-            },
-            action: 'create'
-        };
+        return { action: 'Create' };
     },
 };
 </script>

@@ -20,8 +20,7 @@
                     <th scope="row">1</th>
                     <td>{{ category.name }}</td>
                     <td>
-                        <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal"
-                            v-on:click="editEvent(categories)"></i>
+                        <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal" v-on:click="editEvent(categories)"></i>
                         <i class="fa-solid fa-trash" v-on:click="deleteEvent(categories._id)"></i>
                     </td>
                 </tr>
@@ -29,7 +28,7 @@
         </table>
         <div class="alert alert-warning m-3" role="alert" v-show="!thereAreCategories">There are not results!!!.</div>
     </div>
-    <CategoryForm />
+    <CategoryForm :category-selected="categorySelected" />
 </template>
 
 <script>
@@ -55,7 +54,8 @@ export default {
                     _id: '4',
                     name: 'Category 3'
                 },
-            ]
+            ],
+            categorySelected: null
         }
     },
     buildCategories() {
@@ -78,8 +78,10 @@ export default {
     },
     methods: {
 
-        editEvent(event) { },
-        deleteEvent(event) { }
+        editEvent(data) { 
+            this.categorySelected = data
+        },
+        deleteEvent(event) { },
     },
     computed: {
         thereAreCategories() {

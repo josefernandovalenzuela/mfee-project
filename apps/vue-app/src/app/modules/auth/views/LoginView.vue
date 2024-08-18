@@ -11,7 +11,7 @@
                     </div>
                     <div class="form-group pb-3">
                         <label>Password</label>
-                        <input type="password" class="form-control" v-model="newUser.password"/>
+                        <input type="password" class="form-control" v-model="newUser.password" />
                         <span class="form-text text-danger"> Error </span>
                     </div>
 
@@ -27,13 +27,19 @@
 </template>
 
 <script>
+import router from '../../../router/router';
+
 export default {
     name: "LoginView",
     created() {
     },
     methods: {
-        signUpEvent(){},
-        loginEvent(){},
+        signUpEvent() {
+            router.push({
+                name: 'signUp'
+            });
+        },
+        loginEvent() { },
 
     },
     data() {
