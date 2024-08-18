@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-5">
+    <!-- <div class="container mt-5">
         <div class="d-flex justify-content-between">
             <h1 class="display-6">Categories</h1>
             <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#createCategoryModal">Add
@@ -27,7 +27,9 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
+    <li v-for="category in categories" :key="category._id"
+    >{{ category.name }}</li>>
     <CategoryForm />
 </template>
 
@@ -39,16 +41,44 @@ export default {
     components: {
         CategoryForm,
     },
+    data(){
+        return {
+            categories: [
+            {
+                _id:'2',
+                name: 'Category 1'
+            } ,  
+            {
+                _id:'3',
+                name: 'Category 2'
+            } ,  
+            {
+                _id:'4',
+                name: 'Category 3'
+            } ,   
+            ]
+        }
+    },
+    buildCategories(){
+        this.categoriies = [
+            {
+                _id:'1',
+                name: 'All'
+            },
+            ...this.categoriies
+        ]
+
+        this.categoriies = this.categoriies.map((categoriies) => ({
+            ...categoriies,
+            active: category.name ==='All'
+        })
+        )
+    },
     created() {
 
     },
     methods: {
 
-    },
-    data() {
-        return {
-
-        };
-    },
+    }
 };
 </script>
