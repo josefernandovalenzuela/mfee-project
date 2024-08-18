@@ -1,5 +1,7 @@
 import { reactive } from 'vue';
 import { getPosts } from '../helpers/posts';
+import { getCategories } from '../helpers/categories';
+
 export const store = reactive({
   currentCategoryId: '1',
   setCurrentCategory(categorySelected) {
@@ -9,22 +11,13 @@ export const store = reactive({
   async getPosts() {
     this.posts = await getPosts();
   },
+  postEditing: null,
+  setPostEditing(post) {
+    this.postEditing = post;
+  },
   categories: [],
-  getCategories() {
-    this.categories = [
-      {
-        _id: '2',
-        name: 'Category1'
-      },
-      {
-        _id: '3',
-        name: 'Category2'
-      },
-      {
-        _id: '4',
-        name: 'Category3'
-      }
-    ];
+  async getCategories() {
+    this.categories = await getCategories()
   },
   showNavBar: true,
   setShowNavBar(show) {

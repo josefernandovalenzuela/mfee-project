@@ -7,7 +7,7 @@
         </div>
 
         <hr />
-        <table class="table table-striped">
+        <table class="table table-striped" v-show="thereAreCategories">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -15,78 +15,68 @@
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
-            <tbody v-for="category in categories" :key="category._id">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>{{ category.name }}</td>
-                    <td>
-                        <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal" v-on:click="editEvent(categories)"></i>
-                        <i class="fa-solid fa-trash" v-on:click="deleteEvent(categories._id)"></i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="alert alert-warning m-3" role="alert" v-show="!thereAreCategories">There are not results!!!.</div>
+        <tbody>
+            <tr v-for="category in categories" :key="category._id">
+            <th scope="row">{{ category._id }}</th>
+            <td>{{ category.name }}</td>
+            <td>
+              <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal" @click="selectCategory(category)" ></i>
+              <i class="fa-solid fa-trash" @click="remove(category._id)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-warning m-3" role="alert" v-show="!thereAreCategories">There are not results.</div>
     </div>
-    <CategoryForm :category-selected="categorySelected" />
-</template>
-
-<script>
-import CategoryForm from './CategoryForm.vue';
-
-export default {
+    <CategoryForm :category-selected="categorySelected" @get-categories="getCategories" @select-category="selectCategory" />
+  </template>
+  
+  <script>
+  import CategoryForm from './CategoryForm.vue';
+  import { getCategories } from '../../../helpers/categories';
+  import { deleteCategory } from '../../../helpers/categories';
+  import { alerts } from '../../../helpers/alerts';
+  
+  export default {
     name: "CategoryList",
     components: {
-        CategoryForm,
+      CategoryForm
     },
+    mixins: [alerts],
     data() {
-        return {
-            categories: [
-                {
-                    _id: '2',
-                    name: 'Category 1'
-                },
-                {
-                    _id: '3',
-                    name: 'Category 2'
-                },
-                {
-                    _id: '4',
-                    name: 'Category 3'
-                },
-            ],
-            categorySelected: null
-        }
-    },
-    buildCategories() {
-        this.categoriies = [
-            {
-                _id: '1',
-                name: 'All'
-            },
-            ...this.categoriies
-        ]
-
-        this.categoriies = this.categoriies.map((categoriies) => ({
-            ...categoriies,
-            active: category.name === 'All'
-        })
-        )
-    },
-    created() {
-
+      return {
+        categories: null,
+        categorySelected: null
+      };
     },
     methods: {
-
-        editEvent(data) { 
-            this.categorySelected = data
-        },
-        deleteEvent(event) { },
+      async remove(id) {
+        let status;
+        status = await deleteCategory(id);
+  
+        if (status) {
+          this.getCategories();
+          this.showAlert('success', 'The category has been deleted');
+        } else {
+          this.showAlert('error', "The category couldn't be deleted");
+        }
+      },
+      selectCategory(category) {
+        this.categorySelected = category;
+      },
+      async getCategories() {
+        this.categories = await getCategories();
+      }
+    },
+    created() {
+      this.getCategories();
+      
     },
     computed: {
-        thereAreCategories() {
-            return this.categories && this.categories.length > 0;
-        }
+      thereAreCategories() {
+        return this.categories && this.categories.length > 0;
+      }
     }
-};
-</script>
+  };
+  </script>
+  
