@@ -14,5 +14,13 @@
 </template>
 
 <script>
-export default {};
+// import LoginView from '../app/modules/auth/views/LoginView.vue';
+// import SignUpView from '../app/modules/auth/views/SignUpView.vue';
+
+export default {
+  components: {
+
+
+  }
+};
 </script>
