@@ -20,8 +20,8 @@
             <th scope="row">{{ category._id }}</th>
             <td>{{ category.name }}</td>
             <td>
-              <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal" @click="selectCategory(category)" ></i>
-              <i class="fa-solid fa-trash" @click="remove(category._id)"></i>
+              <i class="fa-solid fa-pen me-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal" v-on:click="selectCategory(category)" ></i>
+              <i class="fa-solid fa-trash" v-on:click="remove(category._id)"></i>
             </td>
           </tr>
         </tbody>

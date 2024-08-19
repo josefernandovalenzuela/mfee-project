@@ -41,7 +41,7 @@
               </span>
             </div>
             <div class="d-flex justify-content-center mt-1">
-              <button class="btn btn-primary" @click="submit">Sign Up</button>
+              <button class="btn btn-primary" v-on:click="submit()">Sign Up</button>
             </div>
           </form>
         </div>

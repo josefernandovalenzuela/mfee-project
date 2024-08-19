@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn btn-light" :class="{ active: category.active }" @click="selectCategory(category._id)">
+  <button type="button" class="btn btn-light" :class="{ active: category.active }" v-on:click="selectCategory(category._id)">
     {{ category.name }}
   </button>
 </template>

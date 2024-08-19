@@ -13,7 +13,7 @@
       </span>
     </div>
     <div class="col-md-6">
-      <button class="btn btn-primary mt-2" @click="submit">Add</button>
+      <button class="btn btn-primary mt-2" v-on:click="submit()">Add</button>
     </div>
   </form>
 </template>
@@ -23,12 +23,15 @@ import { useVuelidate } from '@vuelidate/core';
 import { helpers, required } from '@vuelidate/validators';
 import { createComment } from '../../../helpers/comments';
 import { useRoute } from 'vue-router';
+import { alerts } from '../../../helpers/alerts';
 
 export default {
-    name: "NewComponent",
-    data() {
-        return {
-          v$: useVuelidate(),
+  components: {},
+  mixins: [alerts],
+  emits: ['getPostById'],
+  data() {
+    return {
+      v$: useVuelidate(),
       comment: null,
       postId: null,
       route: null
@@ -40,29 +43,33 @@ export default {
         required: helpers.withMessage('User field is required.', required),
         $autoDirty: true
       }
-
-        };
-    },
-    methods : {
-      getPostById() {
+    };
+  },
+  methods: {
+    getPostById() {
       this.$emit('getPostById');
     },
+
     reset() {
       this.comment = null;
       this.v$.$reset();
     },
+
     async submit() {
       const isValid = await this.v$.$validate();
+
       if (!isValid) {
         this.v$.$touch();
       } else {
         this.addComment();
       }
     },
+
     async addComment() {
       let status;
-      const newComment = { content: this.comment, author: 'David', postId: this.postId };
+      const newComment = { content: this.comment, author: 'Mauricio', postId: this.postId };
       status = await createComment(newComment);
+
       if (status) {
         this.showAlert('success', 'The comment has been added');
         this.getPostById();
