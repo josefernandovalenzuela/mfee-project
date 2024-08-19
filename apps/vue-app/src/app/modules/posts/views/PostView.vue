@@ -26,13 +26,13 @@ export default {
   },
   computed: {
     thereArePosts() {
-      return this.postsFiltered.length > 0;
+      return this.postsFiltered?.length > 0;
     },
     postsFiltered() {
       if (this.store.currentCategoryId === '1') {
         return this.store.posts;
       }
-      const postFiltered = this.store.posts.filter((post) => post.category._id === this.store.currentCategoryId);
+      const postFiltered = this.store.posts.filter((post) => post.category?._id === this.store.currentCategoryId);
       return postFiltered;
     }
   }

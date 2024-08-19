@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     thereAreComments() {
-      return this.comments.length > 0;
+      return this.comments?.length > 0;
     }
   },
   methods: {
