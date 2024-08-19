@@ -1,26 +1,82 @@
 <template>
-  <div class="col-md-6 mt-5">
-    <form>
-      <input type="text" class="form-control" placeholder="Write a comment" v-model="comment"/>
-    </form>
-  </div>
-  <div class="col-md-6">
-    <button class="btn btn-primary mt-2" v-on:click="add()">Add</button>
-  </div>
+  <form @submit.prevent>
+    <div class="col-md-6 mt-5">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Write a comment"
+        v-model="comment"
+        :class="v$.comment.$error === true ? 'is-invalid' : ''"
+      />
+      <span class="form-text text-danger" v-for="error of v$.comment.$errors" :key="error.$uid">
+        {{ error.$message }}
+      </span>
+    </div>
+    <div class="col-md-6">
+      <button class="btn btn-primary mt-2" @click="submit">Add</button>
+    </div>
+  </form>
 </template>
 
 <script>
+import { useVuelidate } from '@vuelidate/core';
+import { helpers, required } from '@vuelidate/validators';
+import { createComment } from '../../../helpers/comments';
+import { useRoute } from 'vue-router';
 
 export default {
     name: "NewComponent",
     data() {
         return {
-            comment: 'My comment test'
+          v$: useVuelidate(),
+      comment: null,
+      postId: null,
+      route: null
+    };
+  },
+  validations() {
+    return {
+      comment: {
+        required: helpers.withMessage('User field is required.', required),
+        $autoDirty: true
+      }
 
         };
     },
     methods : {
-      add(){}
+      getPostById() {
+      this.$emit('getPostById');
+    },
+    reset() {
+      this.comment = null;
+      this.v$.$reset();
+    },
+    async submit() {
+      const isValid = await this.v$.$validate();
+      if (!isValid) {
+        this.v$.$touch();
+      } else {
+        this.addComment();
+      }
+    },
+    async addComment() {
+      let status;
+      const newComment = { content: this.comment, author: 'David', postId: this.postId };
+      status = await createComment(newComment);
+      if (status) {
+        this.showAlert('success', 'The comment has been added');
+        this.getPostById();
+        this.reset();
+      } else {
+        this.showAlert('error', "The comment couldn't be saved");
+      }
     }
+  },
+  created() {
+    this.route = useRoute();
+  },
+  mounted() {
+    this.postId = this.route.params.id;
+  }
 };
 </script>

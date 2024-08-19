@@ -24,7 +24,7 @@
         <p class="fs-5">
           {{ post.description }}
         </p>
-        <CommentsList />
+        <CommentsList :comments="post.comments" @get-post-by-id="getPostById" />
       </div>
     </div>
   </div>
@@ -44,16 +44,18 @@ export default {
   },
   data() {
     return {
-      post: {}
+      store,
+      post: {},
+      comments: null
     };
   },
   methods: {
-    async getPostById(postId) {
-      this.post = await getPostById(postId);
+    async getPostById() {
+      this.post = await getPostById(this.id);
     }
   },
   created() {
-    this.getPostById(this.id);
+    this.getPostById();
     this.store.setShowNavBar(false);
   },
   unmounted() {
