@@ -18,6 +18,9 @@ https://vuelidate-next.netlify.app/
 
 ## Activities
 
+### /post-detail route
+1. Finish the functionality there to add a new comment. Create the axios call to add a new comment, you have to use validator in the input, sweet alerts, props, etc
+
 ### CategoryForm
 1. Define a new prop (**categorySelected**) of type **Object**
 
