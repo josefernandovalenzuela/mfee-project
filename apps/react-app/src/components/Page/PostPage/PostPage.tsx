@@ -5,35 +5,38 @@ import {
   DescriptionContainer,
 } from "./PostPage.styles";
 
-// const post = {
-//   image: "",
-//   title: "",
-//   postID: "",
-//   comments: [
-//     {
-//       _id: "",
-//       author: "",
-//       content: "",
-//       createdAt: "",
-//       updatedAt: "",
-//       __v: "",
-//     },
-//   ],
-//   description: "",
-// }; // ACT 1 - Fill all this properties with random data
+import Banner from "../../Banner";
+import Comments from "../../Comments";
+
+const post = {
+  image: "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
+  title: "Camaleon",
+  postID: "121sq22",
+  comments: [
+    {
+      _id: "4if91",
+      author: "José Valenzuela",
+      content: "Comentario",
+      createdAt: "2024-04-10 12:00:00",
+      updatedAt: "2024-04-10 12:00:00",
+      __v: "_v",
+    },
+  ],
+  description: "Imagen de un camaleon",
+} 
 
 function PostPage() {
   return (
     <Container container>
       Post page
       <BannerContainer item>
-        {/* ACT 1 - Render Banner component */}
+        <Banner />
       </BannerContainer>
       <DescriptionContainer item>
-        <p>{/* ACT 1 - Render post description */}</p>
+        <p>{post.description}</p>
       </DescriptionContainer>
       <CommentsContainer item>
-        {/* ACT 1 - Render Comments component */}
+        <Comments />
       </CommentsContainer>
     </Container>
   );

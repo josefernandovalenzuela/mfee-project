@@ -3,8 +3,8 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 import { BannerContent, BannerTitle, Container } from "./Banner.styles";
 
-const postImage = ""; // ACT 1 - Put some image URL
-// const postTitle = ""; //ACT 1 -  Write a title
+const postImage = "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp"; // ACT 1 - Put some image URL
+const postTitle = "Gatito chino"; //ACT 1 -  Write a title
 
 function Banner() {
   return (
@@ -14,7 +14,7 @@ function Banner() {
           View Posts
         </Button>
         <BannerTitle variant="h3">
-          {/* ACT 1 - Render postTitle */}
+          {postTitle}
         </BannerTitle>
       </BannerContent>
     </Container>
