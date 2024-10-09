@@ -9,7 +9,7 @@ const postTitle = "Gatito chino"; //ACT 1 -  Write a title
 
 function Banner() {
   return (
-    <Container image={""}>
+    <Container image={postImage}>
       {/* ACT 3 - Send postImage as image prop to Container component */}
       <BannerContent>
         <Button sx={{ color: "white" }} startIcon={<ArrowBackIosIcon />}>

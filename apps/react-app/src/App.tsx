@@ -3,6 +3,8 @@ import { Grid } from "@mui/material";
 import { HomePage, LoginPage } from "./components/Page";
 import { PostPage } from "./components/Page";
 import { CategoriesPage } from "./components/Page";
+import NavBar from "./components/NavBar";
+import { PageContainer } from "./components/Page/CategoriesPage/CategoriesPage.styles";
 
 function App() {
   const page: string = "HomePage";
@@ -21,24 +23,15 @@ function App() {
           }}
         >
           {page === "HomePage" && <HomePage />}
-          {/* ACT 1 - Render PostPage and CategoriesPage components */}
-          {/* ACT 2 - Move the following content to a new component called LoginPage and render it*/}
           {/* ACT 4 - Add conditions to render PostPage, LoginPage and CategoriesPage components */}
-          {/* <PageContainer container>
+          <PageContainer container>
             Login Page
             <Grid item md={4} xs={4} lg={4}>
-              //Form
+              Form
             </Grid>
-          </PageContainer> */}
+          </PageContainer> 
         </Grid>
       </Grid>
-    </>
-    <>
-      <HomePage />
-      <PostPage />
-      <CategoriesPage />
-      {/* ACT 2 - Move the following content to a new component called LoginPage and render it*/}
-     <LoginPage/>
     </>
   );
 }
