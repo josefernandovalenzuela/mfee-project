@@ -30,13 +30,13 @@ function PostPage() {
     <Container container>
       Post page
       <BannerContainer item>
-        <Banner />
+        <Banner postImage={post.image} postTitle={post.title}/>
       </BannerContainer>
       <DescriptionContainer item>
         <p>{post.description}</p>
       </DescriptionContainer>
       <CommentsContainer item>
-        <Comments />
+        <Comments comments={post.comments}/>
       </CommentsContainer>
     </Container>
   );

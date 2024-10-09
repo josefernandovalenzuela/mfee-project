@@ -12,7 +12,16 @@ const comment = {
   __v: "-v",
 }; // ACT 1 - Fill all the properties with random data
 
-function CommentCard() {
+export interface CommentProp {
+    _id: string;
+    author: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: string;
+}
+
+function CommentCard({ _id, author, content, createdAt, updatedAt, __v }: CommentProp) {
   return (
     <Container item sm={8}>
       <AccountCircleIcon />
