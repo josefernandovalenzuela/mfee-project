@@ -8,6 +8,9 @@ import { PageContainer } from "./components/Page/CategoriesPage/CategoriesPage.s
 
 function App() {
   const page: string = "HomePage";
+  const postPage: string = "PostPage";
+  const loginPage: string = "LoginPage";
+  const categoriesPage: string = "CategoriesPage";
   return (
     <>
       <Grid container id="app" direction="column" height="100vh" wrap="nowrap">
@@ -25,7 +28,9 @@ function App() {
           {page === "HomePage" && <HomePage />}
           {/* ACT 4 - Add conditions to render PostPage, LoginPage and CategoriesPage components */}
           <PageContainer container>
-            Login Page
+            {postPage === "PostPage" && <PostPage />}
+            {categoriesPage === "CategoriesPage" && <CategoriesPage />}
+            {loginPage === "LoginPage" && <LoginPage />}
             <Grid item md={4} xs={4} lg={4}>
               Form
             </Grid>
