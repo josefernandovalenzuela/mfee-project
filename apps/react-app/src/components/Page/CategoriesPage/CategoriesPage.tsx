@@ -1,13 +1,15 @@
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { PageContainer } from "./CategoriesPage.styles";
- import { Category } from "../../../types";
- import Table from '../../Table';
+import { Category } from "../../../types";
+import TableComponent from "../../Table";
 
  const categories: Category[] = [
    { id: "663fef70d513515319551d1f", name: "Travel" },
    { id: "663fef70d513515319546d1f", name: "Food" },
  ];
+
+ const headers: string[] = ["Name", "Actions"];
 
 function CategoriesPage() {
   // ACT 6 - Create a state called "rows"
@@ -26,10 +28,7 @@ function CategoriesPage() {
         //Add category (Icon button)
       </Grid>
       <Grid item sx={{ flexGrow: 1 }}>
-        {/* ACT 6 - Create a component called "Table" to display category names */
-        rows?.map((row) => {
-          return <Table name={row.name} />
-        })}
+       <TableComponent headers={headers} categories={rows} handleEditItem={handleEditItem} handleDeleteItem={handleDeleteItem}/>
       </Grid>
       //Modal
     </PageContainer>
