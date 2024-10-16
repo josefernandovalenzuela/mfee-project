@@ -26,6 +26,7 @@ function Comments({comments}: CommentsProps) {
       {comments.map(() => {
         return  <CommentCard {...comments[0]}/>
       })}
+      {/* ACT 5 - Iterate comments to render CommentCard component for each comment */}
       <FormContainer item sm={8}>
         Form
       </FormContainer>

@@ -12,6 +12,7 @@ function App() {
   const loginPage: string = "LoginPage";
   const categoriesPage: string = "CategoriesPage";
   return (
+    <PostProvider>
     <>
       <Grid container id="app" direction="column" height="100vh" wrap="nowrap">
         <NavBar />
@@ -38,6 +39,7 @@ function App() {
         </Grid>
       </Grid>
     </>
+    </PostProvider>
   );
 }
 
