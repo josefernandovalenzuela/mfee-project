@@ -1,3 +1,6 @@
+import { HomePage } from "./components/Page";
+import NavBar from "./components/NavBar";
+import { PostProvider } from "./context";
 import { Grid } from "@mui/material";
 
 import { HomePage, LoginPage } from "./components/Page";

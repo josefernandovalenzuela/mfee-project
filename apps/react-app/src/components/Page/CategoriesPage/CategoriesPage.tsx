@@ -25,12 +25,12 @@ function CategoriesPage() {
     <PageContainer container>
       Categories Page
       <Grid item sx={{ justifyContent: "flex-end", display: "flex" }}>
-        //Add category (Icon button)
+        {/* ACT 8 - Use the IconButton component (from MUI) to open the Modal */}
       </Grid>
       <Grid item sx={{ flexGrow: 1 }}>
        <TableComponent headers={headers} categories={rows} handleEditItem={handleEditItem} handleDeleteItem={handleDeleteItem}/>
       </Grid>
-      //Modal
+      {/* ACT 8 - Create a Modal to add new categories and update existing ones */}
     </PageContainer>
   );
 }
