@@ -152,7 +152,7 @@ const LoginPage = () => {
             })}
           </form>
         )}
-        <Button variant="contained" style={{maxWidth: "250px"}} onClick={handleClickSignUp} sx={{mr:2}}>Sign Up</Button>
+        <Button variant="outlined" style={{maxWidth: "250px"}} onClick={handleClickSignUp} sx={{mr:2}}>Sign Up</Button>
         <Button variant="contained" style={{maxWidth: "250px"}} onClick={handleClickLogIn}>Log In</Button>
       </Grid>
     </PageContainer>

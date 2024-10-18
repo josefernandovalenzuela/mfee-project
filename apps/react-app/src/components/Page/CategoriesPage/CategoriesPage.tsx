@@ -125,7 +125,7 @@ function CategoriesPage() {
           {!isUpdate ? <h3>Create Category</h3> : <h3>Update Category</h3>}
           {!isUpdate ? <TextField label="Name" required fullWidth error={errorInput} onChange={(event) => handleChange(event.target.value)}></TextField> : <TextField label="Name" required fullWidth error={errorInput} onChange={(event) => handleChangeUpdate(event.target.value)} value={updatedCategory}></TextField>}
           <div style={{marginTop: '2rem', textAlign: 'right'}}>
-            <Button variant="contained" sx={{mr:1}} onClick={handleClose}>CANCEL</Button>
+            <Button variant="outlined" sx={{mr:1}} onClick={handleClose}>CANCEL</Button>
             {!isUpdate ? <Button variant="contained" onClick={handleCreate}>CREATE</Button> : <Button variant="contained" onClick={handleUpdate}>UPDATE</Button>}
           </div>
        </CardContent>
