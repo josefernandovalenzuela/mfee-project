@@ -30,8 +30,8 @@ function CommentCard({ _id, author, content, createdAt, updatedAt, __v }: Commen
     <Container item sm={8}>
       <AccountCircleIcon />
       <Content>
-        <Author>{comment.author}</Author>
-        <Typography>{comment.content}</Typography>
+        <Author>{author}</Author>
+        <Typography>{content}</Typography>
       </Content>
     </Container>
   );

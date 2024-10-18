@@ -1,6 +1,8 @@
 import { Title, Container, FormContainer } from "./Comments.styles";
 import CommentCard from "../CommentCard";
 import { CommentProp } from "../CommentCard/CommentCard";
+import AddCommentForm from "../Form/AddComentForm";
+import { useState } from "react";
 
 /*const comments = [
   {
@@ -17,18 +19,23 @@ interface CommentsProps {
   comments: CommentProp[];
 }
 
+
 function Comments({comments}: CommentsProps) {
+
+  const [commentsState, setCommentsState] = useState<CommentProp[]>(comments);
+  
   return (
     <Container container>
       <Title item sm={8}>
         <h4>Comments</h4>
       </Title>
-      {comments.map(() => {
-        return  <CommentCard {...comments[0]}/>
+      {commentsState.map((comment) => {
+        return  <CommentCard {...comment}/>
       })}
       {/* ACT 5 - Iterate comments to render CommentCard component for each comment */}
       <FormContainer item sm={8}>
         {/* ACT 8 - Create a form to add comments */}
+        <AddCommentForm setCommentsState={setCommentsState}/>
       </FormContainer>
     </Container>
   );

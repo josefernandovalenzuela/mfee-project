@@ -15,7 +15,7 @@ import { useContext } from "react";
 
 interface PostListProps {
   posts: Post[];
-  selectedCategory: Category | null;
+  selectedCategory?: Category;
   handleOpenForm: (defaultValues?: Post) => void;
 }
 

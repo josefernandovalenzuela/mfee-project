@@ -1,5 +1,5 @@
-import React, { createContext, useState, useCallback, useContext } from "react";
-
+import React, { createContext, useState, useCallback, useContext, useEffect } from "react";
+import { NewPost } from "../types";
 import { Post } from "../types";
 import { SnackbarProvider, SnackbarContext } from "./SnackbarProvider";
 
